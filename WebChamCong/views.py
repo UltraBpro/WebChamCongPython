@@ -2,7 +2,6 @@ import sqlite3
 from math import sin, cos, sqrt, atan2, radians
 from django.shortcuts import render
 from .models import Account
-from geopy.geocoders import Nominatim
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -51,5 +50,5 @@ def calculate_distance_view(request):
     lat = request.GET.get('lat')
     lon = request.GET.get('lon')
     # giả sử vị trí cố định là (10, 10)
-    distance = distance_between_points(lat, lon, 10, 10)
+    distance = distance_between_points(lat, lon, 16.075521, 108.152953)
     return HttpResponse(str(distance))
