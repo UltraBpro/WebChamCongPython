@@ -33,8 +33,8 @@ def main_view(request):
 
 def distance_between_points(lat1, lon1, lat2, lon2):
     # Đổi đơn vị từ độ sang radian
-    lat1 = radians(lat1)
-    lon1 = radians(lon1)
+    lat1 = radians(float(lat1))
+    lon1 = radians(float(lon1))
     lat2 = radians(lat2)
     lon2 = radians(lon2)
     # Bán kính trung bình của trái đất (đơn vị: km)
@@ -47,3 +47,9 @@ def distance_between_points(lat1, lon1, lat2, lon2):
     c = 2 * atan2(sqrt(a), sqrt(1-a))
     distance = R * c
     return distance
+def calculate_distance_view(request):
+    lat = request.GET.get('lat')
+    lon = request.GET.get('lon')
+    # giả sử vị trí cố định là (10, 10)
+    distance = distance_between_points(lat, lon, 10, 10)
+    return HttpResponse(str(distance))
