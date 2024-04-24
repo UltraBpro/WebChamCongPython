@@ -6,6 +6,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+import geocoder
+server_lat=None
+server_lon=None
 def authenticate(username, password):
     conn = sqlite3.connect('db.sqlite3')
     c = conn.cursor()
@@ -29,7 +32,16 @@ def login_view(request):
 def main_view(request):
     return render(request, 'main.html')
 
-
+def set_host_pos(request):
+    global server_lat, server_lon
+    lat = request.GET.get('lat')
+    lon = request.GET.get('lon')
+    server_lat=lat
+    server_lon=lon
+    print("setted")
+    print(server_lat)
+    print(server_lon)
+    return HttpResponse()
 def distance_between_points(lat1, lon1, lat2, lon2):
     # Đổi đơn vị từ độ sang radian
     lat1 = radians(float(lat1))
@@ -47,8 +59,11 @@ def distance_between_points(lat1, lon1, lat2, lon2):
     distance = R * c
     return distance
 def calculate_distance_view(request):
+    global server_lat, server_lon
     lat = request.GET.get('lat')
     lon = request.GET.get('lon')
-    # giả sử vị trí cố định là (10, 10)
-    distance = distance_between_points(lat, lon, 16.075521, 108.152953)
+    print("before")
+    print(server_lat)
+    print(server_lon)
+    distance = distance_between_points(lat, lon, float(server_lat),float(server_lon))
     return HttpResponse(str(distance))

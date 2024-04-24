@@ -6,27 +6,52 @@
     <title>User Location</title>
 </head>
 <body>
-    <h1>User Location</h1>
-    <button id="calculate">Tính khoảng cách</button>
-    <p id="location"></p>
+    <h1>server location</h1>
+        <input type="text" id="current_lat" placeholder="Enter current latitude">
+        <input type="text" id="current_long" placeholder="Enter current longitude">
+        <button id="calculate">Calculate Distance</button>
+        <p id="result"></p>
     <script>
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            document.getElementById('location').innerText = "Geolocation is not supported by this browser.";
-        }
-        function showPosition(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            document.getElementById('location').innerText = "Vĩ độ: " + latitude + ", Kinh độ: " + longitude;
-            document.getElementById('calculate').addEventListener('click', function() {
-    fetch('/calculate_distance_view?lat=' + latitude + '&lon=' + longitude)
-        .then(response => response.text())
-        .then(distance => alert('Khoảng cách: ' + distance));
-});
-        }
-
+        document.getElementById('calculate').addEventListener('click', function() {
+            let destinationLat = parseFloat(document.getElementById('current_lat').value);
+            let destinationLng = parseFloat(document.getElementById('current_long').value);
+fetch(`/calculate_distance_view?lat=${destinationLat}&lon=${destinationLng}`)
+    .then(response => response.text())
+    .then(distance => document.getElementById('result').innerText = `Distance: ${distance} meters`);
+        });
     </script>
+<button id="load_pos">Load Position</button>
+
+<script>
+    document.getElementById('load_pos').addEventListener('click', function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            document.getElementById('current_lat').value = position.coords.latitude;
+            document.getElementById('current_long').value = position.coords.longitude;
+        }, function(error) {
+            console.log('Error: ' + error);
+        }, {
+            enableHighAccuracy: true
+        });
+    } else {
+        console.log('Geolocation is not supported by this browser.');
+    }
+});
+
+</script>
+
+<button id="set_host_pos">Set Host Position</button>
+
+<script>
+    document.getElementById('set_host_pos').addEventListener('click', function() {
+        let lat = document.getElementById('current_lat').value;
+        let lon = document.getElementById('current_long').value;
+        fetch(`/set_host_pos?lat=${lat}&lon=${lon}`)
+            .then(response => console.log('Host position set successfully'))
+            .catch(error => console.log('Error: ' + error));
+    });
+</script>
+
 
 </body>
 </html>
