@@ -76,15 +76,10 @@ WSGI_APPLICATION = 'BTLPython.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'python',  # Tên database của bạn
-        'USER': 'hoangduy00987',  # Tên người dùng MySQL của bạn
-        'PASSWORD': '123456789',  # Mật khẩu của bạn
-        'HOST': 'localhost',  # Địa chỉ máy chủ, thường là 'localhost'
-        'PORT': '3307',  # Cổng kết nối MySQL, mặc định là 3306
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 
 # Password validation
@@ -127,4 +122,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'WebChamCong.CustomUser'
