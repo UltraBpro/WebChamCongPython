@@ -1,11 +1,15 @@
+from datetime import datetime,date
+from decimal import Decimal
 from math import sin, cos, sqrt, atan2, radians
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Account
+from .models import Account, BangChamCong
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from .models import Account
 from django.contrib.auth import authenticate, login
+
+from geopy.distance import geodesic
 
 server_lat = None
 server_lon = None
@@ -14,6 +18,7 @@ server_lon = None
 def view_accounts(request):
     accounts = Account.objects.all()
     return render(request, 'view_accounts.html', {'accounts': accounts})
+
 
 def add_account(request):
     if request.method == 'POST':
@@ -26,6 +31,7 @@ def add_account(request):
         return redirect('WebChamCong:view_accounts')
     return render(request, 'add_account.html')
 
+
 def edit_accounts(request, account_id):
     account = get_object_or_404(Account, pk=account_id)
     if request.method == 'POST':
@@ -36,6 +42,7 @@ def edit_accounts(request, account_id):
         return redirect('WebChamCong:view_accounts')
     else:
         return render(request, 'edit_account.html', {'account': account})
+
 
 def delete_accounts(request, account_id):
     account = get_object_or_404(Account, pk=account_id)
@@ -56,7 +63,8 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         if authenticate(username=username, password=password):
-            request.session['logged_in_role'] = Account.objects.get(username=username, password=password).role  # Lưu role của tài khoản vào session
+            request.session['logged_in_username'] = Account.objects.get(username=username, password=password).username
+            request.session['logged_in_role'] = Account.objects.get(username=username, password=password).role
             return HttpResponseRedirect('main/')  # Chuyển hướng đến trang main.html sau khi đăng nhập thành công
         else:
             error_message = "Sai tên đăng nhập hoặc mật khẩu."
@@ -81,20 +89,9 @@ def set_host_pos(request):
 
 
 def distance_between_points(lat1, lon1, lat2, lon2):
-    # Đổi đơn vị từ độ sang radian
-    lat1 = radians(float(lat1))
-    lon1 = radians(float(lon1))
-    lat2 = radians(lat2)
-    lon2 = radians(lon2)
-    # Bán kính trung bình của trái đất (đơn vị: km)
-    R = 6371.0
-    # Tính độ chênh lệch giữa vĩ độ và kinh độ của hai điểm
-    dlon = lon2 - lon1
-    dlat = lat2 - lat1
-    # Sử dụng công thức Haversine để tính khoảng cách giữa hai điểm
-    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
-    distance = R * c
+    location1 = (lat1, lon1)
+    location2 = (lat2, lon2)
+    distance = geodesic(location1, location2).meters
     return distance
 
 
@@ -102,8 +99,23 @@ def calculate_distance_view(request):
     global server_lat, server_lon
     lat = request.GET.get('lat')
     lon = request.GET.get('lon')
-    print("before")
-    print(server_lat)
-    print(server_lon)
+    username=request.session['logged_in_username']
     distance = distance_between_points(lat, lon, float(server_lat), float(server_lon))
+    if distance <= 10:
+        diem_danh_va_tinh_luong(username)
     return HttpResponse(str(distance))
+
+
+def diem_danh_va_tinh_luong(username):
+    ngay_hien_tai = date.today()
+    account = Account.objects.get(username=username)
+    bang_cham_cong, created = BangChamCong.objects.get_or_create(account=account, ngay=ngay_hien_tai,
+                                                                 defaults={'start_time': datetime.now().time()})
+    if not created:
+        bang_cham_cong.end_time = datetime.now().time()
+        so_gio_lam_viec = (datetime.combine(date.min, bang_cham_cong.end_time) - datetime.combine(date.min,
+                                                                                                  bang_cham_cong.start_time)).seconds / 3600
+        luong_hien_tai = so_gio_lam_viec * float(account.salary)  # Chuyển đổi Decimal sang float
+
+        BangChamCong.objects.filter(pk=bang_cham_cong.pk).update(end_time=bang_cham_cong.end_time,
+                                                                 luong_ngay=Decimal(luong_hien_tai))
