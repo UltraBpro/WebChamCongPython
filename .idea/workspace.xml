@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72f921cb-5251-4da2-840a-2c6960759334" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/WebChamCong/templates/add_account.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebChamCong/templates/create_account.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebChamCong/templates/edit_account.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebChamCong/templates/view_accounts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebChamCong/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WebChamCongPython.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WebChamCongPython.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTLPython/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/BTLPython/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTLPython/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/BTLPython/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebChamCong/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebChamCong/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebChamCong/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebChamCong/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebChamCong/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebChamCong/templates/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebChamCong/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebChamCong/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +28,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -34,14 +46,26 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;Python.tt.executor&quot;: &quot;Run&quot;,
+    &quot;Python.urls.executor&quot;: &quot;Run&quot;,
     &quot;Python.views.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/DaiHoc/HK6/Python/WebChamCongPython&quot;
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/DaiHoc/PBL/first-order-model-master&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="WebChamCongPython" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="WebChamCongPython" />
+      </console-settings>
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\DaiHoc\HK6\Python\WebChamCongPython" />

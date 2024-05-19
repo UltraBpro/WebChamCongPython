@@ -6,6 +6,9 @@
     <title>User Location</title>
 </head>
 <body>
+<a href="{% url 'WebChamCong:view_accounts' %}">
+    <button>Xem tất cả tài khoản</button>
+</a>
     <h1>server location</h1>
         <input type="text" id="current_lat" placeholder="Enter current latitude">
         <input type="text" id="current_long" placeholder="Enter current longitude">
@@ -15,7 +18,7 @@
         document.getElementById('calculate').addEventListener('click', function() {
             let destinationLat = parseFloat(document.getElementById('current_lat').value);
             let destinationLng = parseFloat(document.getElementById('current_long').value);
-fetch(`/calculate_distance_view?lat=${destinationLat}&lon=${destinationLng}`)
+fetch(`/webchamcong/calculate_distance_view?lat=${destinationLat}&lon=${destinationLng}`)
     .then(response => response.text())
     .then(distance => document.getElementById('result').innerText = `Distance: ${distance} meters`);
         });
@@ -46,7 +49,7 @@ fetch(`/calculate_distance_view?lat=${destinationLat}&lon=${destinationLng}`)
     document.getElementById('set_host_pos').addEventListener('click', function() {
         let lat = document.getElementById('current_lat').value;
         let lon = document.getElementById('current_long').value;
-        fetch(`/set_host_pos?lat=${lat}&lon=${lon}`)
+        fetch(`/webchamcong/set_host_pos?lat=${lat}&lon=${lon}`)
             .then(response => console.log('Host position set successfully'))
             .catch(error => console.log('Error: ' + error));
     });

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Account</title>
+</head>
+<body>
+    <h2>Add Account</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <label for="role">Role:</label><br>
+        <select id="role" name="role">
+            <option value="admin">Admin</option>
+            <option value="nhanvien">Nhân viên</option>
+        </select><br><br>
+        <label for="salary">Salary:</label><br>
+        <input type="number" id="salary" name="salary"><br><br>
+        <input type="submit" value="Add Account">
+    </form>
+</body>
+</html>
