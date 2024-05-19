@@ -1,5 +1,4 @@
 from datetime import datetime,date
-from decimal import Decimal
 from math import sin, cos, sqrt, atan2, radians
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Account, BangChamCong
@@ -115,7 +114,7 @@ def diem_danh_va_tinh_luong(username):
         bang_cham_cong.end_time = datetime.now().time()
         so_gio_lam_viec = (datetime.combine(date.min, bang_cham_cong.end_time) - datetime.combine(date.min,
                                                                                                   bang_cham_cong.start_time)).seconds / 3600
-        luong_hien_tai = so_gio_lam_viec * float(account.salary)  # Chuyển đổi Decimal sang float
+        luong_hien_tai = int(so_gio_lam_viec) * account.salary  # Chuyển đổi Decimal sang float
 
         BangChamCong.objects.filter(pk=bang_cham_cong.pk).update(end_time=bang_cham_cong.end_time,
-                                                                 luong_ngay=Decimal(luong_hien_tai))
+                                                                 luong_ngay=luong_hien_tai)
