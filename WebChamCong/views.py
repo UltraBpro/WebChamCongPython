@@ -56,6 +56,7 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         if authenticate(username=username, password=password):
+            request.session['logged_in_role'] = Account.objects.get(username=username, password=password).role  # Lưu role của tài khoản vào session
             return HttpResponseRedirect('main/')  # Chuyển hướng đến trang main.html sau khi đăng nhập thành công
         else:
             error_message = "Sai tên đăng nhập hoặc mật khẩu."

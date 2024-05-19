@@ -6,9 +6,13 @@
     <title>User Location</title>
 </head>
 <body>
+{% if request.session.logged_in_role == "admin" %}
 <a href="{% url 'WebChamCong:view_accounts' %}">
     <button>Xem tất cả tài khoản</button>
 </a>
+<button id="set_host_pos">Set Host Position</button>
+
+{% endif %}
     <h1>server location</h1>
         <input type="text" id="current_lat" placeholder="Enter current latitude">
         <input type="text" id="current_long" placeholder="Enter current longitude">
@@ -43,7 +47,7 @@ fetch(`/webchamcong/calculate_distance_view?lat=${destinationLat}&lon=${destinat
 
 </script>
 
-<button id="set_host_pos">Set Host Position</button>
+
 
 <script>
     document.getElementById('set_host_pos').addEventListener('click', function() {
