@@ -1,4 +1,4 @@
-from datetime import datetime,date
+from datetime import datetime, date
 from math import sin, cos, sqrt, atan2, radians
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Account, BangChamCong
@@ -98,7 +98,7 @@ def calculate_distance_view(request):
     global server_lat, server_lon
     lat = request.GET.get('lat')
     lon = request.GET.get('lon')
-    username=request.session['logged_in_username']
+    username = request.session['logged_in_username']
     distance = distance_between_points(lat, lon, float(server_lat), float(server_lon))
     if distance <= 10:
         diem_danh_va_tinh_luong(username)
@@ -118,3 +118,24 @@ def diem_danh_va_tinh_luong(username):
 
         BangChamCong.objects.filter(pk=bang_cham_cong.pk).update(end_time=bang_cham_cong.end_time,
                                                                  luong_ngay=luong_hien_tai)
+
+
+def check_attendance(request, account_id=None):
+        checkday = request.POST.get('checkday')
+        logged_in_username = request.session.get('logged_in_username')
+        logged_in_role = request.session.get('logged_in_role')
+        if account_id!=None:
+            account = get_object_or_404(Account, id=account_id)
+            attendance_records = BangChamCong.objects.filter(account=account)
+            checkday=account_id
+        elif logged_in_role == 'admin':
+            attendance_records = BangChamCong.objects.filter(ngay=checkday)
+        else:
+            account = Account.objects.get(username=logged_in_username)
+            attendance_records = BangChamCong.objects.filter(account=account, ngay=checkday)
+        context = {
+            'attendance_records': attendance_records,
+            'checkday': checkday,
+        }
+        print(attendance_records)
+        return render(request, 'attendance.html', context)

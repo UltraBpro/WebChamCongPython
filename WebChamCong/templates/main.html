@@ -16,7 +16,7 @@
     <h1>server location</h1>
         <input type="text" id="current_lat" placeholder="Enter current latitude">
         <input type="text" id="current_long" placeholder="Enter current longitude">
-        <button id="calculate">Calculate Distance</button>
+        <button id="calculate">Distance check and verify</button>
         <p id="result"></p>
     <script>
         document.getElementById('calculate').addEventListener('click', function() {
@@ -47,8 +47,6 @@ fetch(`/webchamcong/calculate_distance_view?lat=${destinationLat}&lon=${destinat
 
 </script>
 
-
-
 <script>
     document.getElementById('set_host_pos').addEventListener('click', function() {
         let lat = document.getElementById('current_lat').value;
@@ -58,7 +56,10 @@ fetch(`/webchamcong/calculate_distance_view?lat=${destinationLat}&lon=${destinat
             .catch(error => console.log('Error: ' + error));
     });
 </script>
-
-
+<form action="{% url 'WebChamCong:check_attendance' %}" method="POST">
+    {% csrf_token %}
+    <input type="date" id="checkday" name="checkday">
+    <button type="submit">Kiểm tra chấm công</button>
+</form>
 </body>
 </html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bảng Chấm Công</title>
+
+</head>
+<body>
+    <h2>Bảng Chấm Công Của {{ checkday }}</h2>
+
+    <table>
+        <tr>
+            <th>Ngày</th>
+            <th>Tên Nhân Viên</th>
+            <th>Giờ Bắt Đầu</th>
+            <th>Giờ Kết Thúc</th>
+            <th>Lương Ngày</th>
+        </tr>
+        {% for record in attendance_records %}
+        <tr>
+            <td>{{ record.ngay }}</td>
+            <td>{{ record.account.username }}</td>
+            <td>{{ record.start_time }}</td>
+            <td>{{ record.end_time|default:"Không có dữ liệu" }}</td>
+            <td>{{ record.luong_ngay|default:0 }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Không có dữ liệu chấm công cho ngày này.</td>
+        </tr>
+        {% endfor %}
+    </table>
+<a href="{% url 'WebChamCong:main' %}">Back</a>
+</body>
+</html>
