@@ -48,6 +48,31 @@ def delete_accounts(request, account_id):
     account.delete()
     return redirect('WebChamCong:view_accounts')
 
+def change_password(request):
+    if request.method == 'POST':
+        username = request.session.get('logged_in_username')
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        try:
+            account = Account.objects.get(username=username)
+        except Account.DoesNotExist:
+            error_message = 'Tài khoản không tồn tại.'
+            return render(request, 'change_password.html', {'error_message': error_message})
+        # Kiểm tra mật khẩu cũ có đúng không
+        if not old_password==account.password:
+            error_message = 'Mật khẩu cũ không đúng.'
+            return render(request, 'change_password.html', {'error_message': error_message})
+        # Kiểm tra mật khẩu mới và xác nhận mật khẩu mới có khớp nhau không
+        if new_password != confirm_password:
+            error_message = 'Mật khẩu mới và xác nhận mật khẩu mới không khớp.'
+            return render(request, 'change_password.html', {'error_message': error_message})
+        # Cập nhật mật khẩu mới
+        account.password = new_password
+        account.save()
+        success_message = 'Đổi mật khẩu thành công.'
+        return render(request, 'change_password.html', {'success_message': success_message})
+    return render(request, 'change_password.html')
 
 def authenticate(username, password):
     try:

@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72f921cb-5251-4da2-840a-2c6960759334" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/WebChamCong/templates/change_password.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebChamCong/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebChamCong/templates/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebChamCong/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebChamCong/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebChamCong/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebChamCong/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
@@ -86,6 +88,11 @@
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/WebChamCong/admin.py</url>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/WebChamCong/urls.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
