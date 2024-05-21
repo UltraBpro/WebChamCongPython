@@ -96,6 +96,8 @@ def distance_between_points(lat1, lon1, lat2, lon2):
 
 def calculate_distance_view(request):
     global server_lat, server_lon
+    if server_lat==None:
+        return HttpResponse("Chưa set server")
     lat = request.GET.get('lat')
     lon = request.GET.get('lon')
     username = request.session['logged_in_username']

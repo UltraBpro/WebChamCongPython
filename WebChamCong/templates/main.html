@@ -26,6 +26,9 @@
             {% csrf_token %}
             <div class="mb-3">
                 <input type="date" id="checkday" name="checkday" class="form-control">
+                <script>
+    document.getElementById('checkday').valueAsDate = new Date();
+</script>
             </div>
             <button type="submit" class="btn btn-primary">Kiểm tra chấm công</button>
         </form>
