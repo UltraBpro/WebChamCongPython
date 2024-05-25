@@ -127,7 +127,7 @@ def calculate_distance_view(request):
     lon = request.GET.get('lon')
     username = request.session['logged_in_username']
     distance = distance_between_points(lat, lon, float(server_lat), float(server_lon))
-    if distance <= 10:
+    if distance <= 30:
         diem_danh_va_tinh_luong(username)
     return HttpResponse(str(distance))
 
